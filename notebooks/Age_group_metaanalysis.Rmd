@@ -1,0 +1,27 @@
+---
+title: "`r params$report_title`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: united
+    code_folding: hide
+params:
+  report_title: "Meta-analysis of age groups"
+  report_author: "Tamas Szabo"
+---
+
+## Setup
+
+```{r results="hide", message=FALSE, warning=FALSE}
+library(dplyr)
+library(stringr)
+library(survminer)
+library(ggplot2)
+
+filter <- dplyr::filter
+select <- dplyr::select
+arrange <- dplyr::arrange
+
+color_names <- c("#E64B35B2", "#4DBBD5B2", "#00A087B2", "#3C5488B2", "#F39B7FB2", "#8491B4B2")
+```

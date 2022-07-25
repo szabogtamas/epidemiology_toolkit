@@ -17,6 +17,7 @@ params:
 library(dplyr)
 library(tibble)
 library(stringr)
+library(survival)
 library(survminer)
 library(ggplot2)
 
@@ -29,7 +30,7 @@ set.seed(1234)
 color_names <- c("#E64B35B2", "#4DBBD5B2", "#00A087B2", "#3C5488B2", "#F39B7FB2", "#8491B4B2")
 ```
 
-## Risk ratio in age groups
+## Construction of toy data
 
 ```{r}
 N <- 200
@@ -48,9 +49,11 @@ rr_test_data <- 101 %>%
     short_event = sample(1:4, n(), replace=TRUE),
     Time        = ifelse(Group == "A", long_surv, short_surv),
     Event       = case_when(
-      Group == "A" & long_event > 2 ~ 1,
-      Group == "B" & short_event > 1 ~ 1,
-      TRUE ~ 0
+      Group == "A" & long_surv > 450 ~ 0,
+      Group == "B" & short_surv > 230 ~ 0,
+      Group == "A" & long_event < 2 ~ 0,
+      Group == "B" & short_event < 2 ~ 0,
+      TRUE ~ 1
     )
   ) %>%
   select(-long_surv, -short_surv, long_event, short_event)
@@ -58,3 +61,12 @@ rr_test_data <- 101 %>%
 head(rr_test_data)
 ```
 
+```{r}
+fit <- survfit(Surv(Time, Event) ~ Group + Sex, data = rr_test_data)
+
+ggsurvplot(
+  fit, data = rr_test_data,
+  palette = "npg", legend.title = "",
+  legend.labs = c("A (f)", "A (m)", "B (f)", "B (m)")
+)
+```

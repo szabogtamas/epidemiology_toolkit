@@ -31,4 +31,7 @@ RUN install2.r --error \
 RUN install2.r --error \
     --deps TRUE \
     devtools \
-    survminer
+    survminer \
+    epitools \
+    PHEindicatormethods \
+    forestplot

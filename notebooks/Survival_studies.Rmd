@@ -1,0 +1,42 @@
+---
+title: "`r params$report_title`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: united
+    code_folding: hide
+params:
+  report_title: "Meta-analysis of survival studies"
+  report_author: "Tamas Szabo"
+---
+
+## Setup
+
+```{r results="hide", message=FALSE, warning=FALSE}
+library(dplyr)
+library(tibble)
+library(stringr)
+library(purrr)
+library(survival)
+library(survminer)
+library(epitools)
+library(PHEindicatormethods)
+library(forestplot)
+library(ggplot2)
+library(DT)
+
+filter <- dplyr::filter
+select <- dplyr::select
+arrange <- dplyr::arrange
+
+set.seed(1234)
+
+color_names <- c("#E64B35B2", "#4DBBD5B2", "#00A087B2", "#3C5488B2", "#F39B7FB2", "#8491B4B2")
+```
+
+## Construction of toy data
+
+```{r}
+
+```

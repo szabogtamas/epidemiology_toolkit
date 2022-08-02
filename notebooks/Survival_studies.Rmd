@@ -38,5 +38,40 @@ color_names <- c("#E64B35B2", "#4DBBD5B2", "#00A087B2", "#3C5488B2", "#F39B7FB2"
 ## Construction of toy data
 
 ```{r}
+N <- 500
+max_age <- 90
 
+main_tab <- 101 %>%
+  seq(., . + N-1) %>%
+  paste("S", ., sep="_") %>%
+  enframe(value="Subject") %>%
+  mutate(
+    Age         = sample(1:max_age, n(), replace=TRUE),
+    Sex         = sample(c("f", "m"), n(), replace=TRUE),
+    Group       = sample(c("A", "B"), n(), replace=TRUE),
+    long_surv   = sample(150:500, n(), replace=TRUE),
+    short_surv  = sample(50:250, n(), replace=TRUE),
+    long_event  = sample(1:3, n(), replace=TRUE),
+    short_event = sample(1:4, n(), replace=TRUE),
+    Time        = ifelse(Group == "A" & Age < 50, long_surv, short_surv),
+    Event       = case_when(
+      Group == "A" & long_surv > 450 ~ 0,
+      Group == "B" & short_surv > 230 ~ 0,
+      Group == "A" & long_event < 2 ~ 0,
+      Group == "B" & short_event < 2 ~ 0,
+      TRUE ~ 1
+    ),
+    Cohort = cut_width(Age, 10, boundary=0, labels=paste(seq(0, max_age-10, 10), seq(10, 90, 10), sep="-"))
+  ) %>%
+  select(-long_surv, -short_surv, long_event, short_event)
+
+head(main_tab)
+```
+
+## Hazard ratios
+
+```{r}
+main_tab %>%
+  coxph(Surv(Time, Event) ~ Group + Sex + Age, data = .) %>%
+  ggforest(data = main_tab)
 ```

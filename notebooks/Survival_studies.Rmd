@@ -68,6 +68,16 @@ main_tab <- 101 %>%
 head(main_tab)
 ```
 
+```{r}
+fit <- survfit(Surv(Time, Event) ~ Group + Sex, data = main_tab)
+
+ggsurvplot(
+  fit, data = main_tab,
+  palette = "npg", legend.title = "",
+  legend.labs = c("A (f)", "A (m)", "B (f)", "B (m)")
+)
+```
+
 ## Hazard ratios
 
 ```{r}

@@ -78,6 +78,12 @@ ggsurvplot(
 )
 ```
 
+```{r}
+toy_risk_table <- surv_summary(fit, data = main_tab)
+
+datatable(toy_risk_table)
+```
+
 ## Hazard ratios
 
 ```{r}

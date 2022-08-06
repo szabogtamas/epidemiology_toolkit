@@ -35,6 +35,24 @@ set.seed(1234)
 color_names <- c("#E64B35B2", "#4DBBD5B2", "#00A087B2", "#3C5488B2", "#F39B7FB2", "#8491B4B2")
 ```
 
+```{r}
+calculate_groupwise_rr <- function(df) {
+  df %>%
+    select(n.risk, cum.n.event, Group) %>%
+    column_to_rownames("Group") %>%
+    t() %>%
+    epitab(method="riskratio") %>%
+    .$tab %>%
+    data.frame() %>%
+    mutate(
+      Sex    = unique(x$Sex),
+      Cohort = unique(x$Cohort)
+    ) %>%
+    .[2,] %>%
+    rownames_to_column("Comparison")
+}
+```
+
 ## Construction of toy data
 
 ```{r}

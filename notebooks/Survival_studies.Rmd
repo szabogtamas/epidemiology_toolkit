@@ -86,6 +86,8 @@ main_tab <- 101 %>%
 head(main_tab)
 ```
 
+## Survival curves
+
 ```{r}
 fit <- survfit(Surv(Time, Event) ~ Group + Sex, data = main_tab)
 

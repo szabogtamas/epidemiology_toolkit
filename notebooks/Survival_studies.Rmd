@@ -111,3 +111,9 @@ main_tab %>%
   coxph(Surv(Time, Event) ~ Group + Sex + Age, data = .) %>%
   ggforest(data = main_tab)
 ```
+
+## Logrank test
+
+```{r}
+survdiff(Surv(Time, Event) ~ Group + Sex + Age, data = .)
+```

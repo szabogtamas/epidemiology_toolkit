@@ -115,5 +115,7 @@ main_tab %>%
 ## Logrank test
 
 ```{r}
-survdiff(Surv(Time, Event) ~ Group + Sex + Age, data = .)
+logrank_result <- survdiff(Surv(Time, Event) ~ Group + Sex + Age, data = .)
+
+logrank_result
 ```

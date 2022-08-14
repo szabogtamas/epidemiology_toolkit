@@ -88,9 +88,19 @@ head(main_tab)
 
 ## Survival curves
 
-```{r}
-fit <- survfit(Surv(Time, Event) ~ Group + Sex, data = main_tab)
+```{r
+fit <- survfit(Surv(Time, Event) ~ Group + Sex, data = main_tab)}
+```
 
+```{r}
+# Base R
+
+plot(
+  fit, xlab = "Time", ylab = "Survival"
+)
+```
+
+```{r}
 ggsurvplot(
   fit, data = main_tab,
   palette = "npg", legend.title = "",

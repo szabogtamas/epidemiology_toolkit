@@ -88,8 +88,8 @@ head(main_tab)
 
 ## Survival curves
 
-```{r
-fit <- survfit(Surv(Time, Event) ~ Group + Sex, data = main_tab)}
+```{r}
+fit <- survfit(Surv(Time, Event) ~ Group + Sex, data = main_tab)
 ```
 
 ```{r}
@@ -125,7 +125,7 @@ main_tab %>%
 ## Logrank test
 
 ```{r}
-logrank_result <- survdiff(Surv(Time, Event) ~ Group + Sex + Age, data = .)
+logrank_result <- survdiff(Surv(Time, Event) ~ Group + Sex + Age, data = main_tab)
 
 logrank_result
 ```

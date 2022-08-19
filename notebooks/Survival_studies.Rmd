@@ -104,7 +104,7 @@ plot(
 ggsurvplot(
   fit, data = main_tab,
   palette = "npg", legend.title = "",
-  legend.labs = c("A (f)", "A (m)", "B (f)", "B (m)")
+  legend.labs = c("Group A (f)", "Group A (m)", "Group B (f)", "Group B (m)")
 )
 ```
 

@@ -117,9 +117,13 @@ datatable(toy_risk_table)
 ## Hazard ratios
 
 ```{r}
-main_tab %>%
-  coxph(Surv(Time, Event) ~ Group + Sex + Age, data = .) %>%
-  ggforest(data = main_tab)
+cox_results <- coxph(Surv(Time, Event) ~ Group + Sex + Age, data = main_tab)
+
+summary(cox_results)
+```
+
+```{r}
+ggforest(cox_results, data = main_tab)
 ```
 
 ## Logrank test
